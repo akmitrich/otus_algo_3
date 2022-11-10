@@ -62,19 +62,19 @@ pub fn fib_rec(n: u8) -> u128 {
     fib_rec(n - 1) + fib_rec(n - 2)
 }
 
-pub fn fib_memo(n: u8) -> u128 {
+pub fn fib_memo(n: u64) -> BigUint {
     let mut memo = HashMap::new();
-    memo.insert(0, 0);
-    memo.insert(1, 1);
+    memo.insert(0, BigUint::zero());
+    memo.insert(1, BigUint::one());
     fib_memo_impl(n, &mut memo)
 }
 
-fn fib_memo_impl(n: u8, memo: &mut HashMap<u8, u128>) -> u128 {
+fn fib_memo_impl(n: u64, memo: &mut HashMap<u64, BigUint>) -> BigUint {
     if let Some(result) = memo.get(&n) {
-        return *result;
+        return result.clone();
     }
     let result = fib_memo_impl(n - 1, memo) + fib_memo_impl(n - 2, memo);
-    memo.insert(n, result);
+    memo.insert(n, result.clone());
     result
 }
 
@@ -120,14 +120,6 @@ mod tests {
         assert_eq!(55, dbg!(fib_rec(10)));
         //        assert_eq!(12586269025, dbg!(fib_rec(50))); // about 100 s
         //        assert_eq!(354224848179261915075, dbg!(fib_rec(100))) // almost impossible to calculate
-    }
-
-    #[test]
-    fn test_fib_memo() {
-        assert_eq!(55, dbg!(fib_memo(10)));
-        assert_eq!(12586269025, dbg!(fib_memo(50)));
-        assert_eq!(354224848179261915075, dbg!(fib_memo(100)));
-        assert_eq!(332825110087067562321196029789634457848, dbg!(fib_memo(186)));
     }
 
     #[test]
