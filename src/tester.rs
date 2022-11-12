@@ -13,7 +13,7 @@ where
             std::fs::read_to_string(dbg!(format!("{path}/test.{i}.out"))).unwrap();
         let elapsed = dbg!(Instant::now().duration_since(start));
         if expected_result.trim() == solved {
-            println!("Test passed in {:?}", elapsed);
+            println!("Test {i} passed in {:?}", elapsed);
         } else {
             println!(
                 "FAILED in {:?} Expected = {expected_result} Solved = {solved}",
@@ -59,7 +59,7 @@ where
             std::fs::read_to_string(dbg!(format!("{path}/test.{i}.out"))).unwrap();
         let elapsed = dbg!(Instant::now().duration_since(start));
         if expected_result.trim() == solved {
-            println!("Test passed in {:?}", elapsed);
+            println!("Test {i} passed in {:?}", elapsed);
         } else {
             println!(
                 "FAILED in {:?} Expected = {expected_result} Solved = {solved}",

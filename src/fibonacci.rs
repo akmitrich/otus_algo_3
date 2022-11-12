@@ -1,4 +1,4 @@
-use num::{BigUint, FromPrimitive, One, ToPrimitive, Zero, bigint::ToBigUint};
+use num::{BigUint, One, ToPrimitive, Zero, bigint::ToBigUint};
 use std::{collections::HashMap, ops::MulAssign};
 
 #[derive(Debug)]
@@ -79,25 +79,23 @@ fn fib_memo_impl(n: u64, memo: &mut HashMap<u64, BigUint>) -> BigUint {
 }
 
 pub fn fib_iter(n: u64) -> BigUint {
-    if n == 1 {
-        return BigUint::from_u8(1).unwrap();
+    match n {
+        0 => BigUint::zero(),
+        _ => {
+            let mut prevprev = BigUint::zero();
+            (1..n).fold(BigUint::one(), |prev, _| {
+                let next = &prev + &prevprev;
+                prevprev = prev;
+                next
+            })
+        }
     }
-    let mut result = BigUint::from_u128(0).unwrap();
-    let mut prev = BigUint::from_u128(1).unwrap();
-    let mut prevprev = BigUint::from_u128(0).unwrap();
-    for _ in 1..n {
-        result = &prevprev + &prev;
-        prevprev = prev.clone();
-        prev = result.clone();
-    }
-    result
 }
 
 pub fn fibo_gold(n: u64) -> u128 {
     let sqrt5 = 5_f64.sqrt();
     let phi: f64 = (1. + sqrt5) / 2.;
     let fibo = crate::pow::binary_pow(phi, n) / sqrt5 + 0.5;
-    println!("fibo = {fibo}");
     fibo.floor().to_u128().unwrap()
 }
 

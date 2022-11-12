@@ -1,11 +1,7 @@
 use std::{ops::MulAssign, fmt::Debug};
 
 pub fn pow(base: f64, exp: u64) -> f64 {
-    let mut result = 1.;
-    for _ in 0..exp {
-        result *= base;
-    }
-    result
+    (0..exp).fold(1., |pow, _| pow * base )
 }
 
 pub fn pow2(base: f64, exp: u64) -> f64 {
@@ -73,5 +69,27 @@ mod tests {
         assert_eq!(4096., dbg!(binary_pow(-2., 12)));
         assert_eq!(3.1197348228454238e35, dbg!(binary_pow(7., 42)));
         assert_eq!(5.70899077082384e45, dbg!(binary_pow(4., 76)));
+    }
+
+    #[test]
+    fn test_pow() {
+        assert_eq!(1., dbg!(pow(100., 0)));
+        assert_eq!(2., dbg!(pow(2., 1)));
+        assert_eq!(-8., dbg!(pow(-2., 3)));
+        assert_eq!(16., dbg!(pow(-2., 4)));
+        assert_eq!(4096., dbg!(pow(-2., 12)));
+        assert_eq!(3.119734822845424e35, dbg!(pow(7., 42)));
+        assert_eq!(5.70899077082384e45, dbg!(pow(4., 76)));
+    }
+
+    #[test]
+    fn test_pow2() {
+        assert_eq!(1., dbg!(pow2(100., 0)));
+        assert_eq!(2., dbg!(pow2(2., 1)));
+        assert_eq!(-8., dbg!(pow2(-2., 3)));
+        assert_eq!(16., dbg!(pow2(-2., 4)));
+        assert_eq!(4096., dbg!(pow2(-2., 12)));
+        assert_eq!(3.1197348228454238e35, dbg!(pow2(7., 42)));
+        assert_eq!(5.70899077082384e45, dbg!(pow2(4., 76)));
     }
 }

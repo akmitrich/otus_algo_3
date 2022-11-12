@@ -16,7 +16,7 @@ fn main() {
         "examples/4.Fibo", 
         |data| {
             let n = data.first().unwrap().parse::<u64>().unwrap();
-            let fibo = otus_algo_3::fibonacci::fibo_matrix(n);
+            let fibo = otus_algo_3::fibonacci::fibo_gold(n);
             fibo.to_string()
         }, 
         7,
@@ -34,8 +34,8 @@ fn main() {
     tester::run_test_lim(
         "examples/4.Fibo", 
         |data| {
-            let n = data.first().unwrap().parse::<u64>().unwrap();
-            let fibo = otus_algo_3::fibonacci::fibo_matrix(n);
+            let n = data.first().unwrap().parse::<u8>().unwrap();
+            let fibo = otus_algo_3::fibonacci::fib_rec(n);
             fibo.to_string()
         }, 
         6,
